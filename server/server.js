@@ -13,6 +13,6 @@ app.use(cors());
 app.use("/",express.static(__dirname + '/public'));
 app.use("/api/cards", cards_router);
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log(`running on port ${process.env.PORT || 3001}`);
+app.listen( 3001, () => {
+    console.log(`running on port 3001`);
 });
