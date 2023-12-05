@@ -108,7 +108,6 @@ const Card = (props) => {
     }
 
     const edit = async () => {
-        
         try {
             const body = {}
             if (name && name.trim() !== '') {
