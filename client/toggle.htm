@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Example</title>
+  <style>
+    .toggle-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .option {
+      display: none;
+    }
+
+    .option.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toggle-container">
+    <button onclick="toggleOption('urlOption')">Paste Image URL</button>
+    <button onclick="toggleOption('searchOption')">Search Image</button>
+  </div>
+
+  <div id="urlOption" class="option active">
+    <label for="imageUrl">Image URL:</label>
+    <input type="text" id="imageUrl" placeholder="Paste Image URL">
+    <!-- Add additional elements related to pasting image URL here -->
+  </div>
+
+  <div id="searchOption" class="option">
+    <label for="searchQuery">Search Query:</label>
+    <input type="text" id="searchQuery" placeholder="Enter search terms">
+    <!-- Add additional elements related to searching image here -->
+  </div>
+
+  <script>
+    function toggleOption(optionId) {
+      // Hide all options
+      var options = document.querySelectorAll('.option');
+      options.forEach(function(option) {
+        option.classList.remove('active');
+      });
+
+      // Show the selected option
+      var selectedOption = document.getElementById(optionId);
+      selectedOption.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
