@@ -59,17 +59,6 @@ const editCard = async (req, res) => {
     }
 }
 
-const searchCard = async (req, res) => {
-    const { name } = req.query;
-    try {
-        const rows = await _searchCard(name);
-        res.json(rows);
-    } catch (e) {
-        console.log(e);
-        res.status(404).json({ msg: "The card is not found." })
-    }
-}
-
 module.exports = {
-    getAllCards, addCard, deleteCard, getOneCard, editCard, searchCard
+    getAllCards, addCard, deleteCard, getOneCard, editCard, 
 }

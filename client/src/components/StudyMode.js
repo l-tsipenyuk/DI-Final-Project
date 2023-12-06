@@ -5,9 +5,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const Study = (props) => {
     const [cards, setCards] = useState([]);
-    const [search, setSearch] = useState('');
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
+
+    const [imagePaste, setImagePaste] = useState(false);
+    const [imageSearch, setImageSearch] = useState(false);
 
     useEffect(() => {
         showAll();
@@ -23,7 +25,41 @@ const Study = (props) => {
         }
     }
 
-    // check search on server!
+    // const addCard = async (e) => {
+    //     e.preventDefault()
+
+    //     const options = {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ image, name }),
+    //     };
+
+    //     try {
+    //         const res = await fetch(`${BASE_URL}/api/cards`, options);
+    //         const data = await res.json();
+    //         setCards(data);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+
+
+
+    const fetchImages = async (searchWord) => {
+        try {
+            const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${searchWord}&rating=g&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My`);
+            const giphyData = await res.json();
+            if (giphyData && giphyData.data.length > 0) {
+                const randomIndex = Math.floor(Math.random() * giphyData.data.length);
+                const giphyImageNew = giphyData.data[randomIndex].images.original.url;
+                setImage(giphyImageNew);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const addCard = async (e) => {
         e.preventDefault()
@@ -39,21 +75,91 @@ const Study = (props) => {
         try {
             const res = await fetch(`${BASE_URL}/api/cards`, options);
             const data = await res.json();
-            setCards(data);
+            // setCards(data);
+            showAll()
         } catch (e) {
             console.log(e);
         }
+
+        setName('');
+        setImage('');
     }
+
+    const activateImagePaste = () => {
+        setImagePaste(true);
+    };
+
+    const exitImagePaste = () => {
+        setImagePaste(false);
+        setImage('');
+    };
+
+    const activateImageSearch = () => {
+        setImageSearch(true);
+    };
+
+    const exitImageSearch = () => {
+        setImageSearch(false);
+        setImage('');
+    };
+
+    // const fetchImages = async (searchWord) => {
+    //     try {
+    //         const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${searchWord}&rating=g&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My`);
+    //         const giphyData = await res.json();
+    //         if (giphyData && giphyData.data.length > 0) {
+    //             const randomIndex = Math.floor(Math.random() * giphyData.data.length);
+    //             const giphyImageNew = giphyData.data[randomIndex].images.original.url;
+    //             setImage(giphyImageNew);
+    //         }
+    //     } catch (e) { console.log(e) }
+    // }
 
     return (
         <div>
             <h1>Time to study some new words!</h1>
             <p>Add a new card.</p>
-            <form onSubmit={addCard}>
-                Image: <input onChange={(e) => setImage(e.target.value)} /><br/>
-                Word: <input onChange={(e) => setName(e.target.value)} />
-                <input type="submit" value="Add" />
-            </form>
+
+            <div>
+                <div className="Toggle">
+                    <button onClick={activateImageSearch}>Search GIF</button>
+                    <button onClick={activateImagePaste}>Paste Image URL</button>
+                </div>
+
+                {imagePaste ? (
+                    <div>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            addCard(e);
+                            exitImagePaste();
+                        }}>
+                            Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
+                            <input type="submit" value="Save" />
+                        </form>
+                    </div>
+                ) : (null)
+                }
+
+                {imageSearch ? (
+                    <div>
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            fetchImages(image);
+                            exitImageSearch();
+                        }}>
+                            Search GIF: <input onChange={(e) => setImage(e.target.value)} />
+                            <button type="submit">Go</button>
+                        </form>
+                    </div>
+                ) : null}
+
+                <form onSubmit={addCard}>
+                    Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
+                    <input type="submit" value="Save" />
+                </form>
+
+            </div>
+
             <h4>Your Card Collection</h4>
 
             {cards.map(item => {
@@ -72,6 +178,7 @@ const Study = (props) => {
                 )
             })}
             <br />
+            <Link to="/quiz">Take a Quiz</Link><br/>
             <Link to="/">Back to Homepage</Link>
         </div>
 

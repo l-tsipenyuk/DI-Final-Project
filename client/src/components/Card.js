@@ -55,9 +55,9 @@ const Card = (props) => {
                         'Content-Type': 'application/json'
                     },
                 });
-            // change this after making card collection!!!
+
             navigate('/study');
-            // change this!!!
+
         } catch (e) {
             console.log(e)
         }
@@ -150,9 +150,9 @@ const Card = (props) => {
 
                         {editMode ? (
                             <div>
-                                {/* handle image search */}
+
                                 <div className="Toggle">
-                                    <button onClick={activateImageSearch}>Search Image</button>
+                                    <button onClick={activateImageSearch}>Search GIF</button>
                                     <button onClick={activateImagePaste}>Paste Image URL</button>
                                 </div>
 
@@ -177,7 +177,7 @@ const Card = (props) => {
                                             fetchImages(image); 
                                             exitImageSearch();
                                         }}>
-                                            Search an image: <input onChange={(e) => setImage(e.target.value)} />
+                                            Search GIF: <input onChange={(e) => setImage(e.target.value)} />
                                             <button type="submit">Go</button>
                                         </form>
                                     </div>
@@ -208,7 +208,7 @@ const Card = (props) => {
             })}
 
             <br />
-            <Link to="/study">Back</Link>
+            <Link to="/study">Back to Card Collection</Link>
         </div >
 
     )

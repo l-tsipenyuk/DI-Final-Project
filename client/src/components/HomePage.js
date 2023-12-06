@@ -9,6 +9,7 @@ const HomePage = (props) => {
     return (
         <div>
             <h1>Welcome to the Anki App</h1>
+            <h4>Add some cards and practice your knowledge!</h4>
             <Link to="/quiz">Quiz Mode</Link><br/>
             <Link to="/study">Study Mode</Link>
         </div>

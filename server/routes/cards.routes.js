@@ -6,8 +6,7 @@ const {
     addCard, 
     deleteCard, 
     getOneCard, 
-    editCard, 
-    searchCard
+    editCard
 } = require('../controllers/cards.controllers.js');
 
 const router = express.Router();
@@ -21,8 +20,6 @@ router.delete("/:id",deleteCard);
 router.get("/:id",getOneCard);
 
 router.put("/:id",editCard);
-
-router.get("/search", searchCard);
 
 module.exports = router;
 

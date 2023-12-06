@@ -112,7 +112,8 @@ const Quiz = () => {
                     <br />
                 </>
             )}
-            <Link to="/">Back to Homepage</Link>
+            <Link to="/">Back to Homepage</Link><br />
+            <Link to="/study">Back to Card Collection</Link>
         </div>
     );
 };
