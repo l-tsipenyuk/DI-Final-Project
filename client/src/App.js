@@ -1,22 +1,35 @@
+import './App.css';
+
+import { Routes, Route } from "react-router-dom";
+
 import HomePage from './components/HomePage';
 import Card from "./components/Card";
 import Quiz from './components/QuizMode';
 import Study from './components/StudyMode';
+import LoginRegister from "./components/LoginRegister";
+import Auth from "./auth/Auth";
 
+import { useState, createContext } from "react";
 
-import { Routes, Route } from "react-router-dom";
-import './App.css';
+export const AppContext = createContext();
 
 function App() {
+  const [token, setToken] = useState();
   return (
-    <div className="App">
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/:id' element={<Card />} />
-        <Route path='/quiz' element={<Quiz />} />
-        <Route path='/study' element={<Study />} />
-      </Routes>
-    </div>
+    <AppContext.Provider value={{ token, setToken }}>
+      <div className="App">
+        <Routes>
+          <Route path='/' element={<Auth><HomePage /></Auth>} />
+
+          <Route path='/login' element={<LoginRegister title='Login' />} />
+          <Route path='/register' element={<LoginRegister title='Register' />} />
+
+          <Route path='/:id' element={<Auth><Card /></Auth>} />
+          <Route path='/quiz' element={<Auth><Quiz /></Auth>} />
+          <Route path='/study' element={<Auth><Study /></Auth>} />
+        </Routes>
+      </div>
+    </AppContext.Provider>
   );
 }
 

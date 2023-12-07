@@ -1,8 +1,7 @@
-const _ = require("lodash");
-// const { cards } = require("../config/db.js");
-const { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard, _searchCard } = require("../models/cards.models.js");
+import _ from "lodash";
+import { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard } from "../models/cards.models.js";
 
-const getAllCards = async (req, res) => {
+export const getAllCards = async (req, res) => {
     try {
         const data = await _getAllCards();
         res.json(data);
@@ -10,21 +9,21 @@ const getAllCards = async (req, res) => {
         console.log(e);
         res.status(404).json({ msg: "No cards found." })
     }
-}
+};
 
-const addCard = async (req, res) => {
-    const { image, name } = req.body;
+export const addCard = async (req, res) => {
+    const { image, name, category } = req.body;
     try {
-        const data = await _addCard(image, name);
+        const data = await _addCard(image, name, category);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not add card." })
     }
-}
+};
 
-const deleteCard = async (req, res) => {
-    const {id} = req.params;
+export const deleteCard = async (req, res) => {
+    const { id } = req.params;
     try {
         const data = await _deleteCard(id);
         res.json(data);
@@ -32,33 +31,30 @@ const deleteCard = async (req, res) => {
         console.log(e);
         res.status(404).json({ msg: "Can not delete card." })
     }
-}
+};
 
-const getOneCard = async (req, res) => {
+export const getOneCard = async (req, res) => {
     const { id } = req.params;
     try {
         const data = await _getOneCard(id);
-        if (data.length === 0)
+        if (!data)
             return res.status(404).json({ msg: 'No cards found.' })
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "No cards found." })
     }
-}
+};
 
-const editCard = async (req, res) => {
+export const editCard = async (req, res) => {
     const { id } = req.params;
-    const { image, name } = req.body;
+    const { image, name, category } = req.body;
     try {
-        const data = await _editCard(id, image, name);
+        const data = await _editCard(id, image, name, category);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not edit card." })
     }
-}
+};
 
-module.exports = {
-    getAllCards, addCard, deleteCard, getOneCard, editCard, 
-}

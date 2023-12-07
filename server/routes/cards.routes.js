@@ -1,25 +1,26 @@
-const express = require('express');
-const { cards } = require('../config/db.js');
+import express from "express";
 
-const {
-    getAllCards, 
-    addCard, 
-    deleteCard, 
-    getOneCard, 
+import {
+    getAllCards,
+    addCard,
+    deleteCard,
+    getOneCard,
     editCard
-} = require('../controllers/cards.controllers.js');
+} from "../controllers/cards.controllers.js"
 
-const router = express.Router();
+import { verifytoken } from "../middlewares/verifytoken.js";
 
-router.get("/",getAllCards);
+const cards_router = express.Router();
 
-router.post("/",addCard);
+cards_router.get("/", verifytoken, getAllCards);
 
-router.delete("/:id",deleteCard);
+cards_router.post("/", verifytoken, addCard);
 
-router.get("/:id",getOneCard);
+cards_router.delete("/:id", verifytoken, deleteCard);
 
-router.put("/:id",editCard);
+cards_router.get("/:id", verifytoken, getOneCard);
 
-module.exports = router;
+cards_router.put("/:id", verifytoken, editCard);
+
+export default cards_router;
 
