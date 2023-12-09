@@ -78,9 +78,14 @@ const Quiz = () => {
 
     return (
         <div>
+            <div className="linkNav">
+                <Link to="/" className="link">HomePage</Link>
+                <Link to="/study" className="link">Card Collection</Link>
+            </div>
             <h1>Let's check your knowledge!</h1>
+
             {quizMode ? (
-                <div>
+                <div className="quizCard">
                     {currentCardIndex < shuffledCards.length ? (
                         <>
                             <img
@@ -92,7 +97,7 @@ const Quiz = () => {
                             <br />
                             <input
                                 type="text"
-                                placeholder="Type the word from the picture"
+                                placeholder="Type the word"
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
                             />
@@ -108,13 +113,13 @@ const Quiz = () => {
                 </div>
             ) : (
                 <>
-                    <button onClick={startQuiz}>Start</button>
+                    <button onClick={startQuiz} className="start">Start</button>
                     <br />
                 </>
             )}
-            <Link to="/">Back to Homepage</Link><br />
-            <Link to="/study">Back to Card Collection</Link>
+            <img src="../quizImage.jpg" alt="Invalid Image URL" id="quizImage" />
         </div>
+        
     );
 };
 

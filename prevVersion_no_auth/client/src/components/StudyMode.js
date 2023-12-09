@@ -83,69 +83,75 @@ const Study = (props) => {
 
     return (
         <div>
-            <h1>Time to study some new words!</h1>
-            <p>Add a new card.</p>
-
-            <div>
-                <div className="Toggle">
-                    <button onClick={activateImageSearch}>Search GIF</button>
-                    <button onClick={activateImagePaste}>Paste Image URL</button>
-                </div>
-
-                {imagePaste ? (
-                    <div>
-                        <form onSubmit={(e) => {
-                            e.preventDefault();
-                            addCard(e);
-                            exitImagePaste();
-                        }}>
-                            Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
-                            <input type="submit" value="Save" />
-                        </form>
-                    </div>
-                ) : (null)
-                }
-
-                {imageSearch ? (
-                    <div>
-                        <form onSubmit={(e) => {
-                            e.preventDefault();
-                            fetchImages(image);
-                            exitImageSearch();
-                        }}>
-                            Search GIF: <input onChange={(e) => setImage(e.target.value)} />
-                            <button type="submit">Go</button>
-                        </form>
-                    </div>
-                ) : null}
-
-                <form onSubmit={addCard}>
-                    Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
-                    <input type="submit" value="Save" />
-                </form>
-
+            <div className="linkNav">
+                <Link to="/" className="link">HomePage</Link>
+                <Link to="/quiz" className="link">Quiz</Link>
             </div>
 
-            <h4>Your Card Collection</h4>
+            <h1>Time to study some new words!</h1>
+            <div className="newCard">
+                <div className="linkIcon">
+                    <img src="../add.png" alt="Invalid Image URL" className="icon" />
+                    <p>Add a new card:</p>
+                </div>
+
+                <div>
+                    <div className="Toggle">
+                        <p>
+                            Image:
+                            <button onClick={activateImageSearch}>Search GIF</button>
+                            <button onClick={activateImagePaste}>Paste Image URL</button></p>
+                    </div>
+
+                    {imagePaste ? (
+                        <div>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                addCard(e);
+                                exitImagePaste();
+                            }}>
+                                Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
+                                <input type="submit" value="Save" />
+                            </form>
+                        </div>
+                    ) : (null)
+                    }
+
+                    {imageSearch ? (
+                        <div>
+                            <form onSubmit={(e) => {
+                                e.preventDefault();
+                                fetchImages(image);
+                                exitImageSearch();
+                            }}>
+                                Search GIF: <input onChange={(e) => setImage(e.target.value)} />
+                                <button type="submit">Go</button>
+                            </form>
+                        </div>
+                    ) : null}
+
+                    <form onSubmit={addCard}>
+                        Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
+                        <input type="submit" value="Save" className="save" />
+                    </form>
+
+                </div>
+            </div>
+
+            <h3>Your Card Collection</h3>
 
             {cards.map(item => {
                 return (
-                    <div
-                        key={item.id}
-                        style={{
-                            display: "inline-block",
-                            border: "1px solid black",
-                            margin: "20px"
-                        }}>
-                        <h4>{item.name}</h4>
-                        <img src={item.image} alt="Ivalid Image URL" width="90" height="90" /><br />
-                        <Link to={`/${item.id}`}>Edit</Link>
+                    <div className="cardCollection"
+                        key={item.id}>
+                        <h4 className="word">{item.name}</h4>
+                        <img src={item.image} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" /><br />
+                        <Link to={`/${item.id}`} className="editLinkonCard">Edit</Link>
                     </div>
                 )
             })}
             <br />
-            <Link to="/quiz">Take a Quiz</Link><br/>
-            <Link to="/">Back to Homepage</Link>
+
         </div>
 
     )

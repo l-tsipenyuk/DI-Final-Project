@@ -8,8 +8,10 @@ const HomePage = (props) => {
 
     return (
         <div>
-            <h1>Welcome to the Anki App</h1>
-            <h4>Add some cards and practice your knowledge!</h4>
+            <div className="header">
+                <h1>Welcome to the Anki App</h1>
+                <h4 id="subheader">Add some cards and practice your knowledge!</h4>
+            </div>
             <div className="linksHomePage">
                 <div className="linkIcon">
                     <img src="../study.png" alt="Invalid Image URL" className="icon" />
