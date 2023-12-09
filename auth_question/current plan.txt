@@ -1,0 +1,18 @@
+1. Create a tool in react-redux to create, save, delete and edit cards - with inputs for word and for link to an image. Use a default image if the link is invalid.
+2. Add a search bar based on Giphy so that users could type in the word and the image from giphy would be fetched.
+3. Enable feature to show all the cards created.
+4. Enable search by word to show the cards which are looked for.
+5. Create node.js and set up server. Adapt post request of a card data to the server when the user clicks on "save" while creating a card (double check handling links to images).
+6. Enable saving cards data in SQL database. 
+7. In react create a quiz-mode from the cards created: the image from a card will be displayed and the user will type the word in the input (handle letter case). 
+8. Set up a counter for correct answers. Handle max score. 
+9. Make an "announcement page" with score result. 
+10. Work on CSS and overall design (I plan on implementing some basic style during the work process but here I mean the overall app appearance).  Make all the pages responsive. 
+11. Double-check the error handling.
+12. Deploy an application.
+
+Possible additional features (one or more could be chosen if all the above works and is completed): 
+13. Enable users in quiz-mode to see the errors.
+14. Make cards in Hebrew (I assume it's not that hard technically but much harder to handle in terms of design)
+15. Enable users to create card decks grouped by topic.
+16. Implement login/register mode (i.e. user can get his cards collection only after registration).
