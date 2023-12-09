@@ -12,8 +12,23 @@ export const _login = async (req, res) => {
         if (row.length === 0)
             return res.status(404).json({ msg: "Email is not found." });
 
-        const match = bcrypt.compareSync(password + "", row[0].password);
-        if (!match) return res.status(404).json({ msg: "The password is invalid." })
+        const storedHashedPassword = row[0].password;
+
+        const match = bcrypt.compareSync(password, storedHashedPassword);
+
+        if (!match) {
+            console.log("Entered Password:", password);
+            console.log("Stored Hashed Password:", storedHashedPassword);
+            console.log("Password Match Result:", match);
+
+            // const salt = bcrypt.genSaltSync(10);
+            // const hash = bcrypt.hashSync(password + "", salt);
+
+            // console.log("Entered Password (before hashing):", password);
+            // console.log("Hashed Password:", hash);
+
+            return res.status(404).json({ msg: "The password is invalid." });
+        }
 
         const userId = row[0].id;
         const userEmail = row[0].email;
@@ -41,7 +56,12 @@ export const _register = async (req, res) => {
     const loweremail = email.toLowerCase();
 
     const salt = bcrypt.genSaltSync(10);
+
+    console.log("Generated Salt:", salt);
     const hash = bcrypt.hashSync(password + "", salt);
+
+    console.log("Entered Password (before hashing):", password);
+    console.log("Hashed Password:", hash);
 
     try {
         const row = await register(loweremail, hash);
@@ -51,3 +71,10 @@ export const _register = async (req, res) => {
         res.status(404).json({ msg: "Email already exists." })
     }
 };
+
+
+
+
+
+
+

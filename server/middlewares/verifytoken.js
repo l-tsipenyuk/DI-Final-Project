@@ -3,15 +3,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const verifytoken = async (req, res, next) => {
-    const accesstoken = req.cookies.token || req.headers["x-access-token"];
+    console.log(req.cookies.accesstoken)
 
-    if (!accesstoken) return res.status(401).json({ msg: "unauthorized" });
+    let token = req.body.token; 
+    console.log(req.cookies.token);
+    if (!token) return res.status(401).json({ msg: 'No token' })
 
-    try {
-        const decoded = jwt.verify(accesstoken, process.env.ACCESS_TOKEN_SECRET);
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ msg: 'Not authorized' })
+
         next();
-    } catch (err) {
-        res.status(403).json({ msg: err.message });
-    }
-
+    })
 };
+
