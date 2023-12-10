@@ -10,4 +10,9 @@ users_router.get("/verify", verifytoken, (req, res) => {
     res.sendStatus(201);
 });
 
+users_router.post("/logout", (req, res) => {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logout successful' });
+});
+
 export default users_router;

@@ -7,7 +7,7 @@ export const verifytoken = (req, res, next) => {
     
     const accesstoken = req.cookies.token || req.headers["x-access-token"];
 
-    if (!accesstoken) return res.status(401).json({ msg: "unauthorized" });
+    if (!accesstoken) return res.status(401).json({ msg: "The user is not authorized" });
 
     jwt.verify(accesstoken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) res.status(403).json({ msg: err.message });
