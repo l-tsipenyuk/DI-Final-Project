@@ -84,42 +84,51 @@ const Quiz = () => {
             </div>
             <h1>Let's check your knowledge!</h1>
 
-            {quizMode ? (
-                <div className="quizCard">
-                    {currentCardIndex < shuffledCards.length ? (
-                        <>
-                            <img
-                                src={shuffledCards[currentCardIndex].image}
-                                alt="Invalid Image URL"
-                                width="90"
-                                height="90"
-                            />
-                            <br />
-                            <input
-                                type="text"
-                                placeholder="Type the word"
-                                value={answer}
-                                onChange={(e) => setAnswer(e.target.value)}
-                            />
-                            <button onClick={handleAnswer}>Next</button>
-                            <p>Score: {count}/{cards.length}</p>
-                        </>
-                    ) : (
-                        <>
-                            <p>This is your final score: {count}/{cards.length}</p>
-                            <button onClick={resetQuiz}>Click to practice again</button>
-                        </>
-                    )}
+            {cards.length === 0 ? (
+                <div>
+                    <p className="emptyCardCollection">You need to add some cards first.</p><br />
+                    <Link to="/study" className="startLinks"><img src="../add.png" alt="Invalid Image URL" className="icon" /></Link><br /><br />
                 </div>
             ) : (
                 <>
-                    <button onClick={startQuiz} className="start">Start</button>
-                    <br />
+                    {quizMode ? (
+                        <div className="quizCard">
+                            {currentCardIndex < shuffledCards.length ? (
+                                <>
+                                    <img
+                                        src={shuffledCards[currentCardIndex].image}
+                                        alt="Invalid Image URL"
+                                        width="90"
+                                        height="90"
+                                    />
+                                    <br />
+                                    <input
+                                        type="text"
+                                        placeholder="Type the word"
+                                        value={answer}
+                                        onChange={(e) => setAnswer(e.target.value)}
+                                    />
+                                    <button onClick={handleAnswer}>Next</button>
+                                    <p>Score: {count}/{cards.length}</p>
+                                </>
+                            ) : (
+                                <>
+                                    <p>This is your final score: {count}/{cards.length}</p>
+                                    <button onClick={resetQuiz}>Click to practice again</button>
+                                </>
+                            )}
+                        </div>
+                    ) : (
+                        <>
+                            <button onClick={startQuiz} className="start">Start</button>
+                            <br />
+                        </>
+                    )}
+                    <img src="../quizImage.jpg" alt="Invalid Image URL" id="quizImage" />
                 </>
             )}
-            <img src="../quizImage.jpg" alt="Invalid Image URL" id="quizImage" />
         </div>
-        
+
     );
 };
 
