@@ -1,15 +1,14 @@
-// import { useState, useContext } from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box, TextField, Button } from "@mui/material";
-// import { AppContext } from "../App";
+import { AppContext } from "../App";
 
 const LoginRegister = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
-    // const { setToken } = useContext(AppContext);
+    const { setToken } = useContext(AppContext);
     const navigate = useNavigate();
 
     const base_url = process.env.REACT_APP_BASE_URL
@@ -18,12 +17,13 @@ const LoginRegister = (props) => {
         if (props.title === "Register") {
             try {
                 const response = await axios.post(`${base_url}/api/users/register`, {
+                // const response = await axios.post("api/users/register", {
                     email,
                     password,
                 });
                 if (response.status === 200) {
                     setMsg("");
-                    navigate("/login");
+                    navigate("/homepage2");
                 }
             } catch (e) {
                 console.log(e);
@@ -32,6 +32,7 @@ const LoginRegister = (props) => {
         } else {
             try {
                 const response = await axios.post(`${base_url}/api/users/login`, {
+                // const response = await axios.post("api/users/login", {
                     email,
                     password,
                 });
@@ -47,7 +48,7 @@ const LoginRegister = (props) => {
         }
     };
 
-    return(
+    return (
         <div>
             <h3>Login/register</h3>
             <Box component={"form"} sx={{ m: 1 }} noValidate autoComplete='off'>

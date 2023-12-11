@@ -7,7 +7,6 @@ dotenv.config();
 export const _login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        // console.log(req.body);
         const row = await login(email.toLowerCase());
 
         if (row.length === 0)

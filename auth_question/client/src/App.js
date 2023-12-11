@@ -9,43 +9,23 @@ import HomePage2 from './components/HomePage2';
 // import Quiz from './components/QuizMode';
 // import Study from './components/StudyMode';
 import Auth from "./auth/Auth";
+import { useState, createContext } from "react";
 
-// import { useState, createContext } from "react";
-
-// export const AppContext = createContext();
-
-// function App() {
-//   const [token, setToken] = useState();
-//   return (
-//     <AppContext.Provider value={{ token, setToken }}>
-//       <div className="App">
-//         <Routes>
-//           <Route path='/' element={<HomePage />} />
-
-//           <Route path='/login' element={<LoginRegister title='Login' />} />
-//           <Route path='/register' element={<LoginRegister title='Register' />} />
-
-//           <Route path='/:id' element={<Auth><Card /></Auth>} />
-
-//           <Route path='/homepage2' element={<Auth><HomePage2 /></Auth>} />
-//           <Route path='/quiz' element={<Auth><Quiz /></Auth>} />
-//           <Route path='/study' element={<Auth><Study /></Auth>} />
-//         </Routes>
-//       </div>
-//     </AppContext.Provider>
-//   );
-// }
+export const AppContext = createContext();
 
 function App() {
+  const [token, setToken] = useState();
   return (
-    <div className="App">
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<LoginRegister title='Login' />} />
-        <Route path='/register' element={<LoginRegister title='Register' />} />
-        <Route path='/homepage2' element={<HomePage2 />} />
-      </Routes>
-    </div>
+    <AppContext.Provider value={{ token, setToken }}>
+      <div className="App">
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginRegister title='Login' />} />
+          <Route path='/register' element={<LoginRegister title='Register' />} />
+          <Route path='/homepage2' element={<Auth><HomePage2 /></Auth>} />
+        </Routes>
+      </div>
+    </AppContext.Provider>
   );
 }
 
