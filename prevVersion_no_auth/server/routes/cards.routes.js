@@ -15,11 +15,11 @@ router.get("/",getAllCards);
 
 router.post("/",addCard);
 
-router.delete("/:id",deleteCard);
+router.delete("/:card_id",deleteCard);
 
-router.get("/:id",getOneCard);
+router.get("/:card_id",getOneCard);
 
-router.put("/:id",editCard);
+router.put("/:card_id",editCard);
 
 module.exports = router;
 

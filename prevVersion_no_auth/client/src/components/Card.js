@@ -13,8 +13,6 @@ const Card = (props) => {
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
 
-    const [previewImage, setPreviewImage] = useState('');
-
     const param = useParams();
     const navigate = useNavigate();
 
@@ -29,7 +27,6 @@ const Card = (props) => {
             if (!res.ok) {
                 console.error(`Error with data fetching. Status: ${res.status}`);
                 setCard([]);
-                // setImage('image1.png');
                 setName('');
                 return;
             }
@@ -41,7 +38,6 @@ const Card = (props) => {
         catch (e) {
             console.log('An error occured:', e);
             setCard([]);
-            // setImage('image1.png');
             setName('');
         }
     };
@@ -69,8 +65,6 @@ const Card = (props) => {
 
     const exitEditMode = () => {
         setEditMode(false);
-        // setImage('');
-        // setName('');
     };
 
     // -----methods to handle image search/image URL paste-----
@@ -103,7 +97,6 @@ const Card = (props) => {
                 const randomIndex = Math.floor(Math.random() * giphyData.data.length);
                 const giphyImageNew = giphyData.data[randomIndex].images.original.url;
                 setImage(giphyImageNew);
-
             }
         } catch (e) { console.log(e) }
     }
@@ -134,9 +127,9 @@ const Card = (props) => {
         }
     }
 
-    useEffect(() => {
-        setPreviewImage(image);
-    }, [image])
+    // useEffect(() => {
+    //     setPreviewImage(image);
+    // }, [image])
 
     return (
         <div>
@@ -148,11 +141,11 @@ const Card = (props) => {
 
             {card && card.length > 0 && card.map((item) => {
                 return (
-                    <div className="cardCollection" key={item.id}
+                    <div className="cardCollection" key={item.card_id}
                     >
                         <h4>{item.name}</h4>
                         <img src={item.image} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" />
-                        
+
                         {editMode ? (
                             <div>
 
@@ -188,9 +181,12 @@ const Card = (props) => {
                                     </div>
                                 ) : null}
 
-                                {/* Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} /><br /> */}
-
-                                <form onSubmit={edit}>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    edit(e);
+                                    exitEditMode();
+                                    navigate('/study'); 
+                                }}>
                                     Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
                                     <input type="submit" value="Save" className="save" />
                                 </form>

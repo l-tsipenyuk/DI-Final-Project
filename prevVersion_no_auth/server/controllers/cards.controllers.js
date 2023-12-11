@@ -1,6 +1,6 @@
 const _ = require("lodash");
 // const { cards } = require("../config/db.js");
-const { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard, _searchCard } = require("../models/cards.models.js");
+const { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard, } = require("../models/cards.models.js");
 
 const getAllCards = async (req, res) => {
     try {
@@ -24,9 +24,9 @@ const addCard = async (req, res) => {
 }
 
 const deleteCard = async (req, res) => {
-    const {id} = req.params;
+    const {card_id} = req.params;
     try {
-        const data = await _deleteCard(id);
+        const data = await _deleteCard(card_id);
         res.json(data);
     } catch (e) {
         console.log(e);
@@ -35,9 +35,9 @@ const deleteCard = async (req, res) => {
 }
 
 const getOneCard = async (req, res) => {
-    const { id } = req.params;
+    const { card_id } = req.params;
     try {
-        const data = await _getOneCard(id);
+        const data = await _getOneCard(card_id);
         if (data.length === 0)
             return res.status(404).json({ msg: 'No cards found.' })
         res.json(data);
@@ -48,10 +48,10 @@ const getOneCard = async (req, res) => {
 }
 
 const editCard = async (req, res) => {
-    const { id } = req.params;
+    const { card_id } = req.params;
     const { image, name } = req.body;
     try {
-        const data = await _editCard(id, image, name);
+        const data = await _editCard(card_id, image, name);
         res.json(data);
     } catch (e) {
         console.log(e);

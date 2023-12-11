@@ -143,10 +143,10 @@ const Study = (props) => {
             {cards.map(item => {
                 return (
                     <div className="cardCollection"
-                        key={item.id}>
+                        key={item.card_id}>
                         <h4 className="word">{item.name}</h4>
                         <img src={item.image} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" /><br />
-                        <Link to={`/${item.id}`} className="editLinkonCard">Edit</Link>
+                        <Link to={`/${item.card_id}`} className="editLinkonCard">Edit</Link>
                     </div>
                 )
             })}

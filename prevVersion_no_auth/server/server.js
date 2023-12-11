@@ -14,5 +14,5 @@ app.use("/",express.static(__dirname + '/public'));
 app.use("/api/cards", cards_router);
 
 app.listen( 3002, () => {
-    console.log(`running on port 3001`);
+    console.log(`running on port 3002`);
 });
