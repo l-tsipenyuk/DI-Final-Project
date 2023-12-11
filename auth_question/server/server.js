@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import users_router from "./routes/users.routes.js";
 import cards_router from "./routes/cards.routes.js";
 
-
 const app = express();
 dotenv.config();
 

@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Auth = (props) => {
+
+    const { id } = useParams();
+    
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         verify();
     }, []);
+
     const verify = async () => {
         try {
             const res = await axios.get("/users/verify");

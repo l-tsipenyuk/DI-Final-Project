@@ -1,22 +1,23 @@
-import { useState, useContext } from "react";
+// import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import { Box, TextField, Button } from "@mui/material";
-
-import { AppContext } from "../App";
+// import { AppContext } from "../App";
 
 const LoginRegister = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
-    const { setToken } = useContext(AppContext);
+    // const { setToken } = useContext(AppContext);
     const navigate = useNavigate();
+
+    const base_url = process.env.REACT_APP_BASE_URL
 
     const loginregister = async () => {
         if (props.title === "Register") {
             try {
-                const response = await axios.post("/users/register", {
+                const response = await axios.post(`${base_url}/api/users/register`, {
                     email,
                     password,
                 });
@@ -25,19 +26,20 @@ const LoginRegister = (props) => {
                     navigate("/login");
                 }
             } catch (e) {
+                console.log(e);
                 setMsg(e.response.data.msg);
             }
         } else {
             try {
-                const response = await axios.post("/users/login", {
+                const response = await axios.post(`${base_url}/api/users/login`, {
                     email,
                     password,
                 });
                 if (response.status === 200) {
                     console.log(response.data);
-                    setToken(response.data);
+                    // setToken(response.data);
                     setMsg("");
-                    navigate("/");
+                    navigate("/homepage2");
                 }
             } catch (e) {
                 setMsg(e.response.data.msg);

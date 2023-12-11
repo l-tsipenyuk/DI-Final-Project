@@ -12,6 +12,9 @@ const Study = (props) => {
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
 
+    const [showSearch, setShowSearch] = useState(false);
+    const [showPaste, setShowPaste] = useState(false);
+
     useEffect(() => {
         showAll();
     }, []);
@@ -62,27 +65,38 @@ const Study = (props) => {
         } catch (e) {
             console.log(e);
         }
-
         setName('');
         setImage('');
+
+        setShowPaste(false)
     }
 
     const activateImagePaste = () => {
         setImagePaste(true);
+
+        setShowSearch(false);
+        setShowPaste(true);
     };
 
     const exitImagePaste = () => {
         setImagePaste(false);
         setImage('');
+
+        setShowPaste(false);
     };
 
     const activateImageSearch = () => {
         setImageSearch(true);
+
+        setShowSearch(true);
+        setShowPaste(false);
     };
 
     const exitImageSearch = () => {
         setImageSearch(false);
         setImage('');
+
+        setShowSearch(false);
     };
 
     return (
@@ -92,7 +106,7 @@ const Study = (props) => {
                 <Link to="/quiz" className="link">Quiz</Link>
             </div>
 
-            <h1>Time to study some new words!</h1><br/>
+            <h1>Time to study some new words!</h1><br />
             <div className="newCard">
                 <div className="linkIcon">
                     <img src="../add.png" alt="Invalid Image URL" className="icon" />
@@ -112,8 +126,12 @@ const Study = (props) => {
                                 addCard(e);
                                 exitImagePaste();
                             }}>
-                                Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
-                                <input type="submit" value="Save" />
+                                {showPaste && (
+                                    <>
+                                        Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
+                                        <input type="submit" value="Enter" className="save" />
+                                    </>
+                                )}
                             </form>
                         </div>
                     ) : (null)
@@ -126,17 +144,20 @@ const Study = (props) => {
                                 fetchImages(image);
                                 exitImageSearch();
                             }}>
-                                Search GIF: <input onChange={(e) => setImage(e.target.value)} />
-                                <button type="submit">Go</button>
+                                {showSearch && (
+                                    <>
+                                        Search GIF: <input onChange={(e) => setImage(e.target.value)} />
+                                        <button type="submit">Enter</button>
+                                    </>
+                                )}
                             </form>
                         </div>
                     ) : null}
 
                     <form onSubmit={addCard}>
                         Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
-                        <input type="submit" value="Save" className="save" />
+                        <input type="submit" value="Save Card" className="save" />
                     </form>
-
                 </div>
             </div>
 
@@ -152,7 +173,7 @@ const Study = (props) => {
                             <div className="cardCollection"
                                 key={item.card_id}>
                                 <h4 className="word">{item.name}</h4>
-                                <img src={item.image} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" /><br />
+                                <img src={item.image || "../defaultImage.png"} alt="Image is not available" width="90" height="90" className="cardCollectionImage" /><br />
                                 <Link to={`/${item.card_id}`} className="editLinkonCard">Edit</Link>
                             </div>
                         )

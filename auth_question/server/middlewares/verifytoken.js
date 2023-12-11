@@ -2,16 +2,22 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+
 export const verifytoken = (req, res, next) => {
-    console.log(req.cookies.accesstoken);
-    
     const accesstoken = req.cookies.token || req.headers["x-access-token"];
 
-    if (!accesstoken) return res.status(401).json({ msg: "The user is not authorized" });
+    console.log("access token->", accesstoken);
+
+    if (!accesstoken) {
+        console.log("No access token");
+        return res.status(401).json({ msg: "The user is not authorized" });
+    }
 
     jwt.verify(accesstoken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) res.status(403).json({ msg: err.message });
+        if (err) {
+            console.log("JWT Verification Error:", err.message);
+            return res.status(403).json({ msg: err.message });
+        }
         next();
     });
-
 };

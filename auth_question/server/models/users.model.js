@@ -1,7 +1,7 @@
 import { db } from "../config/db.js";
 
 export const register = (email, password) => {
-    return db("users").insert({ email, password }, ["id", "email", "password"]);
+    return db("users").insert({ email, password }, ["user_id", "email", "password"]);
 };
 
 export const login = (email) => {

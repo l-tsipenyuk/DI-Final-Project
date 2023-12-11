@@ -96,7 +96,7 @@ const Quiz = () => {
                             {currentCardIndex < shuffledCards.length ? (
                                 <>
                                     <img
-                                        src={shuffledCards[currentCardIndex].image}
+                                        src={shuffledCards[currentCardIndex].image || "../defaultImage.png"}
                                         alt="Invalid Image URL"
                                         width="90"
                                         height="90"
