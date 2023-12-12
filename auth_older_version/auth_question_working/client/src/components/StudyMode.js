@@ -9,6 +9,8 @@ const Study = (props) => {
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
 
+    const { user_id } = useContext(AppContext);
+
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
 
@@ -55,7 +57,7 @@ const Study = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ image, name }),
+            body: JSON.stringify({ image, name, user_id }),
         };
 
         try {
