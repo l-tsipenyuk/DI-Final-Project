@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../App";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const GIPHY_KEY = process.env.REACT_APP_SEARCH_IMAGE_GIPHY_API_KEY
@@ -9,6 +10,9 @@ const Card = (props) => {
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
     const [editMode, setEditMode] = useState(false);
+
+    const { user_id } = useContext(AppContext);
+    const context = useContext(AppContext);
 
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
@@ -43,6 +47,8 @@ const Card = (props) => {
     };
 
     const del = async () => {
+        const { user_id } = localStorage;
+        console.log("user_id from front->", user_id, localStorage)
         try {
             const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
                 {
