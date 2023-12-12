@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const base_url = process.env.REACT_APP_BASE_URL
+// const base_url = process.env.REACT_APP_BASE_URL
 
 const Auth = (props) => {
     
@@ -14,13 +14,12 @@ const Auth = (props) => {
     }, []);
 
     const verify = async () => {
-        
         try {
-            const res = await axios.get(`${base_url}/api/users/verify`);
-            // const res = await axios.get(`api/users/verify`);
-            if (res.status === 201) setRedirect(true);
-        } catch (e) {
-            console.log(e.res.data);
+            // const response = await axios.get(`${base_url}/api/users/verify`);
+            const response = await axios.get(`api/users/verify`);
+            if (response.status === 201) setRedirect(true);
+        } catch (err) {
+            console.log(err.response.data);
             setRedirect(false);
             navigate('/login');
         }

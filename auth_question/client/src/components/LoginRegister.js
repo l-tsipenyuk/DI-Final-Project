@@ -23,11 +23,12 @@ const LoginRegister = (props) => {
                 });
                 if (response.status === 200) {
                     setMsg("");
-                    navigate("/homepage2");
+                    // navigate("/homepage2");
+                    navigate("/login");
                 }
-            } catch (e) {
-                console.log(e);
-                setMsg(e.response.data.msg);
+            } catch (err) {
+                console.log(err);
+                setMsg(err.response.data.msg);
             }
         } else {
             try {
@@ -41,16 +42,17 @@ const LoginRegister = (props) => {
                     // setToken(response.data);
                     setMsg("");
                     navigate("/homepage2");
+                    // navigate("/");
                 }
-            } catch (e) {
-                setMsg(e.response.data.msg);
+            } catch (err) {
+                setMsg(err.response.data.msg);
             }
         }
     };
 
     return (
         <div>
-            <h3>Login/register</h3>
+            <h2>Please authorize to access your account</h2>
             <Box component={"form"} sx={{ m: 1 }} noValidate autoComplete='off'>
                 <TextField
                     sx={{ m: 1 }}
@@ -69,7 +71,7 @@ const LoginRegister = (props) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
-            <Button variant='contained' onClick={loginregister}>
+            <Button variant='contained' onClick={loginregister} style={{ backgroundColor: '#3C2607', color: 'white' }}>
                 {props.title}
             </Button>
             <div>{msg}</div>

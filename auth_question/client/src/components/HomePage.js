@@ -8,15 +8,13 @@ const HomePage = (props) => {
 
     return (
         <div>
-            <h1>Welcome to the Anki App</h1>
-            <h4>Add some cards and practice your knowledge!</h4>
-            <p>Please sign up or login</p>
+            <div className="header">
+                <h1>Welcome to the Anki App</h1>
+                <h4 id="subheader">Add some cards and practice your knowledge!</h4>
+            </div>
+            <h4>Please sign up or login</h4>
             <Link to="/register">Register</Link><br/>
             <Link to="/login">Login</Link>
-
-            {/* <Link to="/quiz">Quiz Mode</Link><br/>
-            <Link to="/study">Study Mode</Link> */}
-
         </div>
 
     )

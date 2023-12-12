@@ -14,14 +14,6 @@ export const _login = async (req, res) => {
 
         const match = bcrypt.compareSync(password + "", row[0].password);
 
-        // const match = await bcrypt.compare(password, row[0].password)
-
-        // console.log('password->',password);
-        // console.log('hashed password->',row[0].password);
-        // console.log('password length->', password.length);
-        // console.log('hashed password length->', row[0].password.length);
-        // console.log('password match->', match);
-
         if (!match) return res.status(404).json({ msg: "The password is invalid." })
 
         const userId = row[0].user_id;
@@ -43,7 +35,7 @@ export const _login = async (req, res) => {
         res.json({ accesstoken });
     } catch (e) {
         console.log(e);
-        res.status(404).json({ msg: "Something went wrong (token error)..." });
+        res.status(404).json({ msg: "Something went wrong ..." });
     }
 };
 

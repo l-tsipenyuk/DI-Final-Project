@@ -13,8 +13,6 @@ const Card = (props) => {
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
 
-    const [previewImage, setPreviewImage] = useState('');
-
     const param = useParams();
     const navigate = useNavigate();
 
@@ -29,7 +27,6 @@ const Card = (props) => {
             if (!res.ok) {
                 console.error(`Error with data fetching. Status: ${res.status}`);
                 setCard([]);
-                // setImage('image1.png');
                 setName('');
                 return;
             }
@@ -41,7 +38,6 @@ const Card = (props) => {
         catch (e) {
             console.log('An error occured:', e);
             setCard([]);
-            // setImage('image1.png');
             setName('');
         }
     };
@@ -69,8 +65,6 @@ const Card = (props) => {
 
     const exitEditMode = () => {
         setEditMode(false);
-        // setImage('');
-        // setName('');
     };
 
     // -----methods to handle image search/image URL paste-----
@@ -103,8 +97,6 @@ const Card = (props) => {
                 const randomIndex = Math.floor(Math.random() * giphyData.data.length);
                 const giphyImageNew = giphyData.data[randomIndex].images.original.url;
                 setImage(giphyImageNew);
-
-                // setPreviewImage(giphyImageNew);
             }
         } catch (e) { console.log(e) }
     }
@@ -135,23 +127,24 @@ const Card = (props) => {
         }
     }
 
-    useEffect(() => {
-        setPreviewImage(image);
-    }, [image])
+    // useEffect(() => {
+    //     setPreviewImage(image);
+    // }, [image])
 
     return (
         <div>
+            <div className="linkNav">
+                <Link to="/" className="link">HomePage</Link>
+                <Link to="/quiz" className="link">Quiz</Link>
+                <Link to="/study" className="link">Card Collection</Link>
+            </div>
 
             {card && card.length > 0 && card.map((item) => {
                 return (
-                    <div key={item.id}
-                        style={{
-                            display: "inline-block",
-                            border: "1px solid black",
-                            margin: "20px"
-                        }}>
-                        <img src={item.image} alt="Ivalid Image URL" width="90" height="90" />
+                    <div className="cardCollection" key={item.card_id}
+                    >
                         <h4>{item.name}</h4>
+                        <img src={item.image || "../defaultImage.png"} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" />
 
                         {editMode ? (
                             <div>
@@ -169,29 +162,11 @@ const Card = (props) => {
                                             exitImagePaste();
                                         }}>
                                             Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
-                                            <input type="submit" value="Save" />
+                                            <input type="submit" value="Save" className="save" />
                                         </form>
                                     </div>
                                 ) : (null)
                                 }
-
-                                {/* {imageSearch ? (
-                                    <div>
-                                        <form onSubmit={(e) => {
-                                            e.preventDefault();
-                                            fetchImages(image); 
-                                            exitImageSearch();
-                                        }}>
-                                            Search GIF: <input onChange={(e) => setImage(e.target.value)} />
-
-                                            <div id="gif-preview"></div>
-                                            <button type="submit">Go</button>
-
-
-
-                                        </form>
-                                    </div>
-                                ) : null} */}
 
                                 {imageSearch ? (
                                     <div>
@@ -202,21 +177,18 @@ const Card = (props) => {
                                         }}>
                                             Search GIF: <input onChange={(e) => setImage(e.target.value)} />
                                             <button type="submit">Go</button>
-                                            <div id="gif-preview">
-                                                <p>GIF Preview:</p>
-                                                <img src={image} alt="Invalid Image URL" width="90" height="90" /><br />
-                                            </div>
-
-
                                         </form>
                                     </div>
                                 ) : null}
 
-                                {/* Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} /><br /> */}
-
-                                <form onSubmit={edit}>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    edit(e);
+                                    exitEditMode();
+                                    navigate('/study');
+                                }}>
                                     Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
-                                    <input type="submit" value="Save" />
+                                    <input type="submit" value="Save" className="save" />
                                 </form>
 
                                 <button onClick={exitEditMode}>Cancel Edit</button>
@@ -224,7 +196,7 @@ const Card = (props) => {
                             </div>
                         ) : (
                             <div>
-                                <button onClick={activateEditMode}>Edit</button>
+                                <button onClick={activateEditMode} className="editLink">Edit</button>
                             </div>
                         )}
 
@@ -235,11 +207,7 @@ const Card = (props) => {
                     </div>
                 )
             })}
-
-            <br />
-            <Link to="/study">Back to Card Collection</Link>
         </div >
-
     )
 }
 

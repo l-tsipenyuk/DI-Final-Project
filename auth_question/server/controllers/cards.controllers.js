@@ -23,38 +23,38 @@ export const addCard = async (req, res) => {
 };
 
 export const deleteCard = async (req, res) => {
-    const { id } = req.params;
+    const { card_id } = req.params;
     try {
-        const data = await _deleteCard(id);
+        const data = await _deleteCard(card_id);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not delete card." })
     }
-};
+}
 
 export const getOneCard = async (req, res) => {
-    const { id } = req.params;
+    const { card_id } = req.params;
     try {
-        const data = await _getOneCard(id);
-        if (!data)
+        const data = await _getOneCard(card_id);
+        if (data.length === 0)
             return res.status(404).json({ msg: 'No cards found.' })
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "No cards found." })
     }
-};
+}
 
 export const editCard = async (req, res) => {
-    const { id } = req.params;
-    const { image, name, category } = req.body;
+    const { card_id } = req.params;
+    const { image, name } = req.body;
     try {
-        const data = await _editCard(id, image, name, category);
+        const data = await _editCard(card_id, image, name);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not edit card." })
     }
-};
+}
 
