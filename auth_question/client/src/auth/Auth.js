@@ -1,13 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// const base_url = process.env.REACT_APP_BASE_URL
+// ----------
+import { AppContext } from "../App";
+// ----------
+
+const base_url = process.env.REACT_APP_BASE_URL
 
 const Auth = (props) => {
-    
+
+    // ----------
+    const { token } = useContext(AppContext);
+    // ----------
     const [redirect, setRedirect] = useState(false);
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     verify();
+    // }, []);
+
+    // ----------
+    // useEffect(() => {
+    //     verify();
+    // }, [token]);
+    // ----------
 
     useEffect(() => {
         verify();
@@ -15,8 +32,15 @@ const Auth = (props) => {
 
     const verify = async () => {
         try {
-            // const response = await axios.get(`${base_url}/api/users/verify`);
-            const response = await axios.get(`api/users/verify`);
+
+            let newtoken = localStorage.getItem('accesstoken')
+            // ----------
+            // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['Authorization'] = newtoken;
+            // ----------
+
+            const response = await axios.get(`${base_url}/api/users/verify`);
+            // const response = await axios.get(`api/users/verify`);
             if (response.status === 201) setRedirect(true);
         } catch (err) {
             console.log(err.response.data);

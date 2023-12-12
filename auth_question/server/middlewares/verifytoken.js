@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const verifytoken = (req, res, next) => {
-    const accesstoken = req.cookies.token || req.headers["x-access-token"];
+    // const accesstoken = req.cookies.token || req.headers["x-access-token"];
+
+    let accesstoken = req.cookies.token || req.headers['authorization']
 
     console.log("access token->", accesstoken);
 

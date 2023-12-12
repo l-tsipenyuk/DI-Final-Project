@@ -105,6 +105,7 @@ const Study = (props) => {
                 {/* <Link to="/" className="link">HomePage</Link> */}
                 <Link to="/homepage2" className="link">HomePage</Link>
                 <Link to="/quiz" className="link">Quiz</Link>
+                <Link to="/" className="link">Logout</Link>
             </div>
 
             <h1>Time to study some new words!</h1><br />
