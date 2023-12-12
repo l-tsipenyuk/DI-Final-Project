@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../App";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const GIPHY_KEY = process.env.REACT_APP_SEARCH_IMAGE_GIPHY_API_KEY
@@ -10,6 +11,7 @@ const Study = (props) => {
     const [name, setName] = useState('');
 
     const { user_id } = useContext(AppContext);
+    const context = useContext(AppContext);
 
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
@@ -51,7 +53,8 @@ const Study = (props) => {
 
     const addCard = async (e) => {
         e.preventDefault()
-
+        // console.log("user_id from front->", user_id, localStorage)
+        const { user_id } = localStorage;
         const options = {
             method: 'POST',
             headers: {

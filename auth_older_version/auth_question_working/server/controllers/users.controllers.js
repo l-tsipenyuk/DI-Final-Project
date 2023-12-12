@@ -32,7 +32,7 @@ export const _login = async (req, res) => {
             maxAge: 60 * 1000,
         });
 
-        res.json({ accesstoken });
+        res.json({ accesstoken, user_id: userId });
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Something went wrong ..." });

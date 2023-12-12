@@ -45,7 +45,8 @@ const LoginRegister = (props) => {
                     // -----------------------
 
                     // -----------------------with refresh token
-                    localStorage.setItem('accesstoken', response.data.accesstoken)
+                    localStorage.setItem('accesstoken', response.data.accesstoken);
+                    localStorage.setItem('user_id', response.data.user_id);
 
                     setMsg("");
                     navigate("/homepage2");
