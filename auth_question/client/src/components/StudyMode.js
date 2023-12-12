@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../App";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const GIPHY_KEY = process.env.REACT_APP_SEARCH_IMAGE_GIPHY_API_KEY
@@ -8,6 +9,11 @@ const Study = (props) => {
     const [cards, setCards] = useState([]);
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
+
+    // const [user_id, setUserId] = useState('');
+    const { user_id } = useContext(AppContext);
+
+    const [card_id, setCardId] = useState('');
 
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
@@ -19,9 +25,24 @@ const Study = (props) => {
         showAll();
     }, []);
 
+    // const showAll = async () => {
+    //     try {
+    //         const res = await fetch(`${BASE_URL}/api/cards`);
+    //         const data = await res.json();
+    //         if (data.length > 0) {
+    //             setCards(data);
+    //         } else {
+    //             console.error("No cards available - study");
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
+
+    // auth users cards ------------------------------
     const showAll = async () => {
         try {
-            const res = await fetch(`${BASE_URL}/api/cards`);
+            const res = await fetch(`${BASE_URL}/api/users/${user_id}`);
             const data = await res.json();
             if (data.length > 0) {
                 setCards(data);
@@ -32,6 +53,7 @@ const Study = (props) => {
             console.log(e);
         }
     }
+    // --------------------------------------------------
 
     const fetchImages = async (searchWord) => {
         try {
@@ -61,6 +83,34 @@ const Study = (props) => {
         try {
             const res = await fetch(`${BASE_URL}/api/cards`, options);
             const data = await res.json();
+            setCardId(data[0].card_id);
+            addUserCard(data[0].card_id);
+            showAll()
+        } catch (e) {
+            console.log(e);
+        }
+        setName('');
+        setImage('');
+
+
+        setShowPaste(false);
+        
+    }
+
+    // for adding auth card ------------
+    const addUserCard = async (card_id) => {
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user_id, card_id }),
+        };
+
+        try {
+            const res = await fetch(`${BASE_URL}/api/users`, options);
+            const data = await res.json();
             showAll()
         } catch (e) {
             console.log(e);
@@ -70,6 +120,7 @@ const Study = (props) => {
 
         setShowPaste(false)
     }
+    //---------------------------------
 
     const activateImagePaste = () => {
         setImagePaste(true);
@@ -160,6 +211,7 @@ const Study = (props) => {
                         Word: <input value={name} onChange={(e) => setName(e.target.value)} /><br />
                         <input type="submit" value="Save Card" className="save" />
                     </form>
+                    {/* <button onClick ={addUserCard}>Add User Card</button> */}
                 </div>
             </div>
 

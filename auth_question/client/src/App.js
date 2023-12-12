@@ -16,8 +16,9 @@ export const AppContext = createContext();
 
 function App() {
   const [token, setToken] = useState();
+  const [user_id, setUserId] = useState();
   return (
-    <AppContext.Provider value={{ token, setToken }}>
+    <AppContext.Provider value={{ token, setToken, user_id, setUserId }}>
       <div className="App">
         <Routes>
           {/* <Route path='/' element={<HomePage />} /> */}

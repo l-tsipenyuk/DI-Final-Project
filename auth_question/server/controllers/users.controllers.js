@@ -1,4 +1,4 @@
-import { register, login } from "../models/users.model.js";
+import { register, login, createUserCard, getUserCards, deleteCreatedUserCard } from "../models/users.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -21,8 +21,6 @@ export const _login = async (req, res) => {
 
         const secret = process.env.ACCESS_TOKEN_SECRET;
 
-        // try to type hard token
-
         const accesstoken = jwt.sign({ userId, userEmail }, secret, {
             expiresIn: "60s",
         });
@@ -32,7 +30,7 @@ export const _login = async (req, res) => {
             maxAge: 60 * 1000,
         });
 
-        res.json({ accesstoken });
+        res.json({ accesstoken, userId });
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Something went wrong ..." });
@@ -41,11 +39,7 @@ export const _login = async (req, res) => {
 
 export const _register = async (req, res) => {
 
-    // console.log(req.body);
     const { email, password } = req.body;
-
-    // console.log("email", email);
-    // console.log("password", password);
 
     const loweremail = email.toLowerCase();
 
@@ -60,3 +54,40 @@ export const _register = async (req, res) => {
         res.status(404).json({ msg: "Email already exists." })
     }
 };
+
+// functions to manage auth cards
+
+export const _createUserCard = async (req, res) => {
+    const { user_id, card_id } = req.body;
+    console.log("user_id:", user_id);
+    console.log("card_id:", card_id);
+    try {
+        const data = await createUserCard(user_id, card_id);
+        res.json(data);
+    } catch (e) {
+        console.log(e);
+        res.status(404).json({ msg: "Can not merge user_id and card_id." })
+    }
+};
+
+export const _getUserCards = async (req, res) => {
+    const { user_id } = req.params;
+    try {
+        const data = await getUserCards(user_id);
+        res.json(data);
+    } catch (e) {
+        console.log(e);
+        res.status(404).json({ msg: "Getting auth user cards failed." })
+    }
+};
+
+export const _deleteCreatedUserCard = async (req, res) => {
+    const { card_id, user_id } = req.params;
+    try {
+        const data = await deleteCreatedUserCard(card_id, user_id);
+        res.json(data);
+    } catch (e) {
+        console.log(e);
+        res.status(404).json({ msg: "Can not delete card." })
+    }
+}

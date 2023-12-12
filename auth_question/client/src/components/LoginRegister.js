@@ -8,7 +8,7 @@ const LoginRegister = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
-    const { setToken } = useContext(AppContext);
+    const { setToken, setUserId } = useContext(AppContext);
     const navigate = useNavigate();
 
     const base_url = process.env.REACT_APP_BASE_URL
@@ -45,7 +45,8 @@ const LoginRegister = (props) => {
                     // -----------------------
 
                     // -----------------------with refresh token
-                    localStorage.setItem('accesstoken', response.data.accesstoken)
+                    localStorage.setItem('accesstoken', response.data.accesstoken);
+                    setUserId(response.data.userId);
 
                     setMsg("");
                     navigate("/homepage2");
