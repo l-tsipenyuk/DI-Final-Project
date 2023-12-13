@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const HomePage2 = (props) => {
 
@@ -10,7 +10,10 @@ const HomePage2 = (props) => {
         <div>
             <div className="header">
                 <h1>Welcome to the Anki App</h1>
-                <h4 id="subheader">Add some cards and practice your knowledge!</h4>
+                <h4 id="subheader">Add some cards and practice your knowledge!
+                    <Link to="/" className="logoutHomePage2">Logout</Link>
+                </h4>
+
             </div>
             <div className="linksHomePage">
                 <div className="linkIcon">
@@ -21,9 +24,11 @@ const HomePage2 = (props) => {
                     <img src="../quiz.png" alt="Invalid Image URL" className="icon" />
                     <Link to="/quiz" className="startLinks">Quiz Mode</Link>
                 </div>
+
                 <div className="linkIcon">
                     <Link to="/" className="startLinks">Logout</Link>
                 </div>
+
             </div>
             <img src="../image2.jpg" alt="Invalid Image URL" id="startImage" />
         </div>
