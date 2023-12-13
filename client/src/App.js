@@ -23,8 +23,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginRegister title='Login' />} />
           <Route path='/register' element={<LoginRegister title='Register' />} />
-          {/* <Route path='/homepage2' element={<Auth><HomePage2 /></Auth>} /> */}
-          <Route path='/homepage2' element={<HomePage2 />} />
+          <Route path='/homepage2' element={<Auth><HomePage2 /></Auth>} />
           <Route path='/quiz' element={<Auth><Quiz /></Auth>} />
           <Route path='/study' element={<Auth><Study /></Auth>} />
           <Route path='/:id' element={<Auth><Card /></Auth>} />
