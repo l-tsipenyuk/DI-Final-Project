@@ -11,9 +11,6 @@ const Card = (props) => {
     const [name, setName] = useState('');
     const [editMode, setEditMode] = useState(false);
 
-    const { user_id } = useContext(AppContext);
-    const context = useContext(AppContext);
-
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
 
