@@ -14,13 +14,14 @@ const Quiz = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/api/cards`);
+                const { user_id } = localStorage;
+                const response = await fetch(`${BASE_URL}/api/cards/${user_id}`);
                 const data = await response.json();
 
                 if (data.length > 0) {
                     setCards(data);
                 } else {
-                    console.error("No cards available");
+                    console.error("No cards available (test mode)");
                 }
             } catch (error) {
                 console.error("Error fetching cards:", error);
