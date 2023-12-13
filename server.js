@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+app.use("/api/users", users_router);
+app.use("/api/cards", cards_router);
+
 // for rendering
 app.use(express.static(path.join(__dirname, "/client/build")));
 
@@ -33,5 +36,3 @@ app.listen(3001, () => {
     console.log(`running on port 3001`);
 });
 
-app.use("/api/users", users_router);
-app.use("/api/cards", cards_router);
