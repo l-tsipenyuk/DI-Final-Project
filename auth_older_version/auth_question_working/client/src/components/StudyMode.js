@@ -25,7 +25,8 @@ const Study = (props) => {
 
     const showAll = async () => {
         try {
-            const res = await fetch(`${BASE_URL}/api/cards`);
+            const {user_id } = localStorage;
+            const res = await fetch(`${BASE_URL}/api/cards/${user_id}`);
             const data = await res.json();
             if (data.length > 0) {
                 setCards(data);
@@ -36,6 +37,22 @@ const Study = (props) => {
             console.log(e);
         }
     }
+
+
+    // showAll (show cards without user_id)
+    // const showAll = async () => {
+    //     try {
+    //         const res = await fetch(`${BASE_URL}/api/cards`);
+    //         const data = await res.json();
+    //         if (data.length > 0) {
+    //             setCards(data);
+    //         } else {
+    //             console.error("No cards available - study");
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     const fetchImages = async (searchWord) => {
         try {

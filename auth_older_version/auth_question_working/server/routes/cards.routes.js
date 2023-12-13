@@ -14,7 +14,7 @@ import { db } from "../config/db.js";
 
 const cards_router = express.Router();
 
-cards_router.get("/", getAllCards);
+cards_router.get("/:user_id", getAllCards);
 
 // cards_router.post("/", addCard);
 cards_router.post("/",

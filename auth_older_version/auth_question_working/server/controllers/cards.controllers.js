@@ -3,7 +3,10 @@ import { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard } from "../
 
 export const getAllCards = async (req, res) => {
     try {
-        const data = await _getAllCards();
+        const {user_id} = req.params;
+        console.log(user_id);
+
+        const data = await _getAllCards(user_id);
         res.json(data);
     } catch (e) {
         console.log(e);
