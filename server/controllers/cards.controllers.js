@@ -3,7 +3,10 @@ import { _getAllCards, _addCard, _deleteCard, _editCard, _getOneCard } from "../
 
 export const getAllCards = async (req, res) => {
     try {
-        const data = await _getAllCards();
+        const {user_id} = req.params;
+        console.log(user_id);
+
+        const data = await _getAllCards(user_id);
         res.json(data);
     } catch (e) {
         console.log(e);
@@ -23,38 +26,42 @@ export const addCard = async (req, res) => {
 };
 
 export const deleteCard = async (req, res) => {
-    const { id } = req.params;
+    const { card_id } = req.params;
     try {
-        const data = await _deleteCard(id);
+        const data = await _deleteCard(card_id);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not delete card." })
     }
-};
+}
 
 export const getOneCard = async (req, res) => {
-    const { id } = req.params;
+    console.log("hi")
+    const { card_id } = req.params;
     try {
-        const data = await _getOneCard(id);
-        if (!data)
-            return res.status(404).json({ msg: 'No cards found.' })
-        res.json(data);
+        const test = await db('cards').select('card_id', 'image', 'name')
+        res.json(test)
+        // const test = await db('cards').select('card_id', 'image', 'name').where({ card_id })
+        // const data = await _getOneCard(card_id);
+        // if (data.length === 0)
+        //     return res.status(404).json({ msg: 'No cards found.' })
+        // res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "No cards found." })
     }
-};
+}
 
 export const editCard = async (req, res) => {
-    const { id } = req.params;
-    const { image, name, category } = req.body;
+    const { card_id } = req.params;
+    const { image, name } = req.body;
     try {
-        const data = await _editCard(id, image, name, category);
+        const data = await _editCard(card_id, image, name);
         res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "Can not edit card." })
     }
-};
+}
 

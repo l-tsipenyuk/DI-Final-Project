@@ -1,9 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import { Box, TextField, Button } from "@mui/material";
-
 import { AppContext } from "../App";
 
 const LoginRegister = (props) => {
@@ -13,10 +11,12 @@ const LoginRegister = (props) => {
     const { setToken } = useContext(AppContext);
     const navigate = useNavigate();
 
+    const base_url = process.env.REACT_APP_BASE_URL
+
     const loginregister = async () => {
         if (props.title === "Register") {
             try {
-                const response = await axios.post("/users/register", {
+                const response = await axios.post(`${base_url}/api/users/register`, {
                     email,
                     password,
                 });
@@ -24,30 +24,36 @@ const LoginRegister = (props) => {
                     setMsg("");
                     navigate("/login");
                 }
-            } catch (e) {
-                setMsg(e.response.data.msg);
+            } catch (err) {
+                console.log(err);
+                setMsg(err.response.data.msg);
             }
         } else {
             try {
-                const response = await axios.post("/users/login", {
+                const response = await axios.post(`${base_url}/api/users/login`, {
                     email,
                     password,
                 });
                 if (response.status === 200) {
-                    console.log(response.data);
-                    setToken(response.data);
+
+                    localStorage.setItem('accesstoken', response.data.accesstoken);
+                    localStorage.setItem('user_id', response.data.user_id);
+
                     setMsg("");
-                    navigate("/");
+                    navigate("/homepage2");
                 }
-            } catch (e) {
-                setMsg(e.response.data.msg);
+            } catch (err) {
+                setMsg(err.response.data.msg);
             }
         }
     };
 
-    return(
+    return (
         <div>
-            <h3>Login/register</h3>
+            <div className="header">
+                <h1>Welcome to the Anki App</h1>
+                <h4 id="subheader">Add some cards and practice your knowledge!</h4>
+            </div>
             <Box component={"form"} sx={{ m: 1 }} noValidate autoComplete='off'>
                 <TextField
                     sx={{ m: 1 }}
@@ -66,7 +72,7 @@ const LoginRegister = (props) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </Box>
-            <Button variant='contained' onClick={loginregister}>
+            <Button variant='contained' onClick={loginregister} style={{ backgroundColor: '#3C2607', color: 'white' }}>
                 {props.title}
             </Button>
             <div>{msg}</div>
