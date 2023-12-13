@@ -8,10 +8,26 @@ import cards_router from "./routes/cards.routes.js";
 const app = express();
 dotenv.config();
 
+// for rendering
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// ------------------------
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
+// for rendering
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
+// ------------------------
 
 app.listen(3001, () => {
     console.log(`running on port 3001`);
