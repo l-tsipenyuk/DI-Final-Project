@@ -25,8 +25,8 @@ const Auth = (props) => {
             axios.defaults.headers.common['Authorization'] = newtoken;
 
             // const response = await axios.get(`${base_url}/api/users/verify`);
-            // const response = await axios.get(`/api/users/verify`);
-            const response = await axios.get(`https://anki-app.onrender.com/api/users/verify`);
+            const response = await axios.get(`/api/users/verify`);
+            // const response = await axios.get(`https://anki-app.onrender.com/api/users/verify`);
 
             if (response.status === 201) setRedirect(true);
         } catch (err) {
