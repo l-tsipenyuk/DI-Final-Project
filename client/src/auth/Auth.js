@@ -22,12 +22,14 @@ const Auth = (props) => {
         try {
 
             let newtoken = localStorage.getItem('accesstoken')
-            axios.defaults.headers.common['Authorization'] = newtoken;
+            // axios.defaults.headers.common['Authorization'] = newtoken;
+
+            axios.defaults.headers.common['authorization'] = newtoken;
 
             // const response = await axios.get(`${base_url}/api/users/verify`);
             const response = await axios.get(`/api/users/verify`);
             // const response = await axios.get(`https://anki-app.onrender.com/api/users/verify`);
-
+            console.log("res->", response);
             if (response.status === 201) setRedirect(true);
         } catch (err) {
 
