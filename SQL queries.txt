@@ -1,0 +1,21 @@
+create table cards (
+card_id serial primary key,
+image varchar(500),
+name varchar(255) not null,
+category varchar(255)
+)
+
+drop table cards
+
+create table cardsandusers(
+id serial primary key,
+user_id int,
+card_id int
+)
+
+create table users (
+user_id serial primary key,
+email varchar(255) unique,
+password varchar(1000) not null,
+refresh_token varchar(1000)
+)
