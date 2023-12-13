@@ -16,7 +16,8 @@ const LoginRegister = (props) => {
     const loginregister = async () => {
         if (props.title === "Register") {
             try {
-                const response = await axios.post(`${base_url}/api/users/register`, {
+                // const response = await axios.post(`${base_url}/api/users/register`, {
+                const response = await axios.post(`/api/users/register`, {
                     email,
                     password,
                 });
@@ -30,7 +31,8 @@ const LoginRegister = (props) => {
             }
         } else {
             try {
-                const response = await axios.post(`${base_url}/api/users/login`, {
+                // const response = await axios.post(`${base_url}/api/users/login`, {
+                const response = await axios.post(`/api/users/login`, {
                     email,
                     password,
                 });

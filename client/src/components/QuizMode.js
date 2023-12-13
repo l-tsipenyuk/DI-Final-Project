@@ -15,7 +15,8 @@ const Quiz = () => {
         const fetchData = async () => {
             try {
                 const { user_id } = localStorage;
-                const response = await fetch(`${BASE_URL}/api/cards/${user_id}`);
+                // const response = await fetch(`${BASE_URL}/api/cards/${user_id}`);
+                const response = await fetch(`/api/cards/${user_id}`);
                 const data = await response.json();
 
                 if (data.length > 0) {

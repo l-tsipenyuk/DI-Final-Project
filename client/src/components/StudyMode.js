@@ -22,7 +22,8 @@ const Study = (props) => {
     const showAll = async () => {
         try {
             const {user_id } = localStorage;
-            const res = await fetch(`${BASE_URL}/api/cards/${user_id}`);
+            // const res = await fetch(`${BASE_URL}/api/cards/${user_id}`);
+            const res = await fetch(`/api/cards/${user_id}`);
             const data = await res.json();
             if (data.length > 0) {
                 setCards(data);
@@ -61,7 +62,8 @@ const Study = (props) => {
         };
 
         try {
-            const res = await fetch(`${BASE_URL}/api/cards`, options);
+            // const res = await fetch(`${BASE_URL}/api/cards`, options);
+            const res = await fetch(`/api/cards`, options);
             const data = await res.json();
             showAll()
         } catch (e) {
@@ -82,14 +84,11 @@ const Study = (props) => {
 
     const exitImagePaste = () => {
         setImagePaste(false);
-        // setImage('');
-
         setShowPaste(false);
     };
 
     const activateImageSearch = () => {
         setImageSearch(true);
-
         setShowSearch(true);
         setShowPaste(false);
     };

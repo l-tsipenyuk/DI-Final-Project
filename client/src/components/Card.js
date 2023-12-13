@@ -25,7 +25,8 @@ const Card = (props) => {
 
     const getCardInfo = async () => {
         try {
-            const res = await (fetch(`${BASE_URL}/api/cards/getOneCard/${param.id}`));
+            // const res = await (fetch(`${BASE_URL}/api/cards/getOneCard/${param.id}`));
+            const res = await (fetch(`/api/cards/getOneCard/${param.id}`));
 
             if (!res.ok) {
                 console.error(`Error with data fetching. Status: ${res.status}`);
@@ -47,9 +48,9 @@ const Card = (props) => {
 
     const del = async () => {
         const { user_id } = localStorage;
-        // console.log("user_id from front->", user_id, localStorage)
         try {
-            const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
+            // const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
+            const res = await fetch(`/api/cards/${param.id}`,
                 {
                     method: 'DELETE',
                     headers: {
@@ -125,7 +126,8 @@ const Card = (props) => {
             if (image && image.trim() !== '') {
                 body.image = image.trim()
             }
-            const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
+            // const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
+            const res = await fetch(`/api/cards/${param.id}`,
                 {
                     method: 'PUT',
                     headers: {
