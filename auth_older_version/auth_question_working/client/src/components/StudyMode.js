@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppContext } from "../App";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const GIPHY_KEY = process.env.REACT_APP_SEARCH_IMAGE_GIPHY_API_KEY
@@ -9,9 +8,6 @@ const Study = (props) => {
     const [cards, setCards] = useState([]);
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
-
-    const { user_id } = useContext(AppContext);
-    const context = useContext(AppContext);
 
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
@@ -38,22 +34,6 @@ const Study = (props) => {
         }
     }
 
-
-    // showAll (show cards without user_id)
-    // const showAll = async () => {
-    //     try {
-    //         const res = await fetch(`${BASE_URL}/api/cards`);
-    //         const data = await res.json();
-    //         if (data.length > 0) {
-    //             setCards(data);
-    //         } else {
-    //             console.error("No cards available - study");
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-
     const fetchImages = async (searchWord) => {
         try {
             const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${searchWord}&rating=g&api_key=${GIPHY_KEY}`);
@@ -70,7 +50,6 @@ const Study = (props) => {
 
     const addCard = async (e) => {
         e.preventDefault()
-        // console.log("user_id from front->", user_id, localStorage)
         const { user_id } = localStorage;
         const options = {
             method: 'POST',
@@ -124,7 +103,6 @@ const Study = (props) => {
     return (
         <div>
             <div className="linkNav">
-                {/* <Link to="/" className="link">HomePage</Link> */}
                 <Link to="/homepage2" className="link">HomePage</Link>
                 <Link to="/quiz" className="link">Quiz</Link>
                 <Link to="/" className="link">Logout</Link>
@@ -147,7 +125,7 @@ const Study = (props) => {
                         <div>
                             <form onSubmit={(e) => {
                                 e.preventDefault();
-                                addCard(e);
+                                // addCard(e);
                                 exitImagePaste();
                             }}>
                                 {showPaste && (
@@ -159,7 +137,7 @@ const Study = (props) => {
                             </form>
                         </div>
                     ) : (null)
-                    }
+}
 
                     {imageSearch ? (
                         <div>
@@ -193,7 +171,6 @@ const Study = (props) => {
                 <>
                     <h3>Your Card Collection</h3>
                     {cards.map(item => {
-                        console.log("cards.map,",item)
                         return (
                             <div className="cardCollection"
                                 key={item.card_id}>

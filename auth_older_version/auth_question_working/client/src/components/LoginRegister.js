@@ -17,13 +17,11 @@ const LoginRegister = (props) => {
         if (props.title === "Register") {
             try {
                 const response = await axios.post(`${base_url}/api/users/register`, {
-                    // const response = await axios.post("api/users/register", {
                     email,
                     password,
                 });
                 if (response.status === 200) {
                     setMsg("");
-                    // navigate("/homepage2");
                     navigate("/login");
                 }
             } catch (err) {
@@ -33,24 +31,16 @@ const LoginRegister = (props) => {
         } else {
             try {
                 const response = await axios.post(`${base_url}/api/users/login`, {
-                    // const response = await axios.post("api/users/login", {
                     email,
                     password,
                 });
                 if (response.status === 200) {
-                    console.log(response.data.accesstoken);
 
-                    // -----------------------without refresh token
-                    // setToken(response.data.accesstoken);
-                    // -----------------------
-
-                    // -----------------------with refresh token
                     localStorage.setItem('accesstoken', response.data.accesstoken);
                     localStorage.setItem('user_id', response.data.user_id);
 
                     setMsg("");
                     navigate("/homepage2");
-                    // navigate("/");
                 }
             } catch (err) {
                 setMsg(err.response.data.msg);

@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../App";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL
 const GIPHY_KEY = process.env.REACT_APP_SEARCH_IMAGE_GIPHY_API_KEY
@@ -13,6 +12,9 @@ const Card = (props) => {
 
     const [imagePaste, setImagePaste] = useState(false);
     const [imageSearch, setImageSearch] = useState(false);
+
+    const [showSearch, setShowSearch] = useState(false);
+    const [showPaste, setShowPaste] = useState(false);
 
     const param = useParams();
     const navigate = useNavigate();
@@ -45,7 +47,7 @@ const Card = (props) => {
 
     const del = async () => {
         const { user_id } = localStorage;
-        console.log("user_id from front->", user_id, localStorage)
+        // console.log("user_id from front->", user_id, localStorage)
         try {
             const res = await fetch(`${BASE_URL}/api/cards/${param.id}`,
                 {
@@ -74,20 +76,30 @@ const Card = (props) => {
 
     const activateImagePaste = () => {
         setImagePaste(true);
+
+        setShowSearch(false);
+        setShowPaste(true);
     };
 
     const exitImagePaste = () => {
         setImagePaste(false);
         setImage('');
+
+        setShowPaste(false);
     };
 
     const activateImageSearch = () => {
         setImageSearch(true);
+
+        setShowSearch(true);
+        setShowPaste(false);
     };
 
     const exitImageSearch = async () => {
         setImageSearch(false);
-        await setImage('');
+        setImage('');
+
+        setShowSearch(false);
     };
 
     // --------------------------------------------------------
@@ -130,10 +142,6 @@ const Card = (props) => {
         }
     }
 
-    // useEffect(() => {
-    //     setPreviewImage(image);
-    // }, [image])
-
     return (
         <div>
             <div className="linkNav">
@@ -164,8 +172,12 @@ const Card = (props) => {
                                             edit(e);
                                             exitImagePaste();
                                         }}>
-                                            Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
-                                            <input type="submit" value="Save" className="save" />
+                                            {showPaste && (
+                                                <>
+                                                    Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
+                                                    <input type="submit" value="Enter" className="save" />
+                                                </>
+                                            )}
                                         </form>
                                     </div>
                                 ) : (null)
@@ -178,8 +190,12 @@ const Card = (props) => {
                                             fetchImages(image);
                                             exitImageSearch();
                                         }}>
-                                            Search GIF: <input onChange={(e) => setImage(e.target.value)} />
-                                            <button type="submit">Go</button>
+                                            {showSearch && (
+                                                <>
+                                                    Search GIF: <input onChange={(e) => setImage(e.target.value)} />
+                                                    <button type="submit">Enter</button>
+                                                </>
+                                            )}
                                         </form>
                                     </div>
                                 ) : null}

@@ -80,7 +80,6 @@ const Quiz = () => {
     return (
         <div>
             <div className="linkNav">
-                {/* <Link to="/" className="link">HomePage</Link> */}
                 <Link to="/homepage2" className="link">HomePage</Link>
                 <Link to="/study" className="link">Card Collection</Link>
                 <Link to="/" className="link">Logout</Link>
