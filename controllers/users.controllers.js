@@ -21,15 +21,22 @@ export const _login = async (req, res) => {
 
         const secret = process.env.ACCESS_TOKEN_SECRET;
 
-        // try to type hard token
+        // const accesstoken = jwt.sign({ userId, userEmail }, secret, {
+        //     expiresIn: "60s",
+        // });
+
+        // res.cookie("token", accesstoken, {
+        //     httpOnly: true,
+        //     maxAge: 60 * 1000,
+        // });
 
         const accesstoken = jwt.sign({ userId, userEmail }, secret, {
-            expiresIn: "60s",
+            expiresIn: 60 * 60,
         });
 
         res.cookie("token", accesstoken, {
             httpOnly: true,
-            maxAge: 60 * 1000,
+            maxAge: 60 * 60 * 1000,
         });
 
         res.json({ accesstoken, user_id: userId });

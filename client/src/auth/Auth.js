@@ -30,6 +30,7 @@ const Auth = (props) => {
 
             if (response.status === 201) setRedirect(true);
         } catch (err) {
+
             console.log(err.response.data);
             setRedirect(false);
             navigate('/login');

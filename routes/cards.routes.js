@@ -16,7 +16,6 @@ const cards_router = express.Router();
 
 cards_router.get("/:user_id", getAllCards);
 
-// cards_router.post("/", addCard);
 cards_router.post("/",
     async (req, res) => {
         const { image, name, category, user_id } = req.body;
@@ -45,20 +44,11 @@ cards_router.delete("/:card_id",
     }
 );
 
-// cards_router.delete("/:card_id", deleteCard);
-
-// cards_router.get("/:card_id", getOneCard);
-// cards_router.get("/:user_id/:card_id", getOneCard);
-
-
 cards_router.get("/getOneCard/:card_id",
     async (req, res) => {
         console.log("hi")
         const { card_id } = req.params;
         try {
-            // const test = await db('cards').select('card_id', 'image', 'name')
-            // res.json(test)
-            // const test = await db('cards').select('card_id', 'image', 'name').where({ card_id })
             const data = await db('cards').select('card_id', 'image', 'name').where({ card_id })
             if (data.length === 0)
                 return res.status(404).json({ msg: 'No cards found.' })
