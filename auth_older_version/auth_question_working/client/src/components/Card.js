@@ -148,6 +148,7 @@ const Card = (props) => {
                 <Link to="/" className="link">HomePage</Link>
                 <Link to="/quiz" className="link">Quiz</Link>
                 <Link to="/study" className="link">Card Collection</Link>
+                <Link to="/" className="link">Logout</Link>
             </div>
 
             {card && card.length > 0 && card.map((item) => {
@@ -155,7 +156,7 @@ const Card = (props) => {
                     <div className="cardCollection" key={item.card_id}
                     >
                         <h4>{item.name}</h4>
-                        <img src={item.image || "../defaultImage.png"} alt="Ivalid Image URL" width="90" height="90" className="cardCollectionImage" />
+                        <img src={item.image || "../defaultImage.png"} alt="Ivalid Image URL" className="cardEditImage" />
 
                         {editMode ? (
                             <div>
@@ -171,7 +172,7 @@ const Card = (props) => {
                                             e.preventDefault();
                                             edit(e);
                                             exitImagePaste();
-                                        }}>
+                                        }} className = "editForm">
                                             {showPaste && (
                                                 <>
                                                     Image URL: <input value={image} onChange={(e) => setImage(e.target.value)} />
@@ -189,7 +190,7 @@ const Card = (props) => {
                                             e.preventDefault();
                                             fetchImages(image);
                                             exitImageSearch();
-                                        }}>
+                                        }} className="editForm">
                                             {showSearch && (
                                                 <>
                                                     Search GIF: <input onChange={(e) => setImage(e.target.value)} />

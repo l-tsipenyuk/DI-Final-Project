@@ -11,6 +11,7 @@ body {
 .header {
   background-color: rgb(60, 38, 7);
   color: rgb(225, 207, 179);
+  padding-bottom: 5px;
 }
 
 h1 {
@@ -20,6 +21,7 @@ h1 {
 .linksHomePage {
   border: 1.5px solid rgb(60, 38, 7);
   border-radius: 5px;
+  margin-top: 1%;
   margin-left: 25%;
   margin-right: 25%;
   background-color: rgb(225, 207, 179);
@@ -53,12 +55,14 @@ h1 {
   height: auto;
 }
 
-.logoutHomePage2{
-  color:rgb(225, 207, 179);
+.logoutHomePage2 {
+  color: rgb(60, 38, 7);
   margin-left: 5%;
-  background-color: #282c34;
+  background-color: rgb(225, 207, 179);
   padding: 5px;
   margin-bottom: 5px;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
 h1,
@@ -195,6 +199,20 @@ button.editLink {
   font-size: 16px;
 }
 
+.editForm {
+  margin-left: 5px;
+}
+
+.cardEditImage {
+  width: 120px;
+  height: 120px;
+  background-color: rgb(242, 242, 242);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 #quizImage {
   border-radius: 5px;
   margin-top: 5px;
@@ -219,4 +237,16 @@ button.start {
   max-width: 50%;
   padding: 10px;
   text-align: center;
+}
+
+.quizNext {
+  font-size: 13pt;
+}
+
+.quizInput{
+  font-size: 13pt;
+}
+
+.quizResults{
+  font-size: 13pt;
 }

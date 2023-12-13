@@ -19,10 +19,6 @@ const Study = (props) => {
         showAll();
     }, []);
 
-    useEffect(() => {
-        console.log("Image state has changed:", image);
-    }, [image]);
-
     const showAll = async () => {
         try {
             const {user_id } = localStorage;
@@ -56,7 +52,6 @@ const Study = (props) => {
     const addCard = async (e) => {
         e.preventDefault()
         const { user_id } = localStorage;
-        console.log(`test2:${image}`)
         const options = {
             method: 'POST',
             headers: {
@@ -131,14 +126,6 @@ const Study = (props) => {
                         <div>
                             <form onSubmit={(e) => {
                                 e.preventDefault();
-                                console.log("on submit image url,",e.target[0].value)
-                                // console.log(`test 3a, ${image}`)
-                                // setImage("hello world")
-                                // console.log(`test 3b, ${image}`)
-                                // setImage(e.target[0].value)
-                                // console.log(`test 3c, ${image}`)
-
-                                // addCard(e);
                                 exitImagePaste();
                             }}>
                                 {showPaste && (
@@ -184,7 +171,6 @@ const Study = (props) => {
                 <>
                     <h3>Your Card Collection</h3>
                     {cards.map(item => {
-                        // console.log(`test 1 : ${item.image}`)
                         return (
                             <div className="cardCollection"
                                 key={item.card_id}>

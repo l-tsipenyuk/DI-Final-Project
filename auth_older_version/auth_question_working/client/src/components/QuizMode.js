@@ -100,8 +100,7 @@ const Quiz = () => {
                                     <img
                                         src={shuffledCards[currentCardIndex].image || "../defaultImage.png"}
                                         alt="Invalid Image URL"
-                                        width="90"
-                                        height="90"
+                                        className="cardEditImage"
                                     />
                                     <br />
                                     <input
@@ -109,14 +108,17 @@ const Quiz = () => {
                                         placeholder="Type the word"
                                         value={answer}
                                         onChange={(e) => setAnswer(e.target.value)}
+                                        className="quizInput"
                                     />
-                                    <button onClick={handleAnswer}>Next</button>
+                                    <button onClick={handleAnswer} className="quizNext">Next</button>
                                     <p>Score: {count}/{cards.length}</p>
                                 </>
                             ) : (
                                 <>
-                                    <p>This is your final score: {count}/{cards.length}</p>
-                                    <button onClick={resetQuiz}>Click to practice again</button>
+                                    <div className="quizResults">
+                                        <p>This is your final score: {count}/{cards.length}</p>
+                                        <button onClick={resetQuiz}>Click to practice again</button>
+                                    </div>
                                 </>
                             )}
                         </div>

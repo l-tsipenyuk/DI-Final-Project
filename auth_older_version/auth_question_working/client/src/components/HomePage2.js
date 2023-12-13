@@ -24,11 +24,6 @@ const HomePage2 = (props) => {
                     <img src="../quiz.png" alt="Invalid Image URL" className="icon" />
                     <Link to="/quiz" className="startLinks">Quiz Mode</Link>
                 </div>
-
-                <div className="linkIcon">
-                    <Link to="/" className="startLinks">Logout</Link>
-                </div>
-
             </div>
             <img src="../image2.jpg" alt="Invalid Image URL" id="startImage" />
         </div>
