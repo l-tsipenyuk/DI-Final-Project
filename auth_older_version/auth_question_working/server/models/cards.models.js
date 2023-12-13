@@ -1,16 +1,15 @@
 import { db } from '../config/db.js';
 
-//assuming that we add the cards to the card table and later merge it with users table
-
 export const _getAllCards = (user_id) => {
-    // return db('cards').select('card_id', 'image', 'name').orderBy('name');
     return db("cardsandusers").innerJoin("cards", "cardsandusers.card_id", "cards.card_id")
-        // .select("cards.card_id", "cards.image", "cards.name", "cards.category")
         .where({ user_id })
 }
 
 export const _getOneCard = (card_id) => {
-    return db('cards').select('card_id', 'image', 'name').where({ card_id });
+    return db('cards').select('card_id', 'image', 'name').where({ card_id })
+    // db("cardsandusers").innerJoin("cards", "cardsandusers.card_id", "cards.card_id")
+    // return db("cardsandusers").select("cards", "cardsandusers.card_id", "cards.card_id")
+    // .where({ card_id, user_id })
 }
 
 export const _addCard = (image, name) => {

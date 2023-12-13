@@ -37,12 +37,16 @@ export const deleteCard = async (req, res) => {
 }
 
 export const getOneCard = async (req, res) => {
+    console.log("hi")
     const { card_id } = req.params;
     try {
-        const data = await _getOneCard(card_id);
-        if (data.length === 0)
-            return res.status(404).json({ msg: 'No cards found.' })
-        res.json(data);
+        const test = await db('cards').select('card_id', 'image', 'name')
+        res.json(test)
+        // const test = await db('cards').select('card_id', 'image', 'name').where({ card_id })
+        // const data = await _getOneCard(card_id);
+        // if (data.length === 0)
+        //     return res.status(404).json({ msg: 'No cards found.' })
+        // res.json(data);
     } catch (e) {
         console.log(e);
         res.status(404).json({ msg: "No cards found." })

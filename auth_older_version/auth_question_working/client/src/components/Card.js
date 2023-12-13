@@ -23,7 +23,7 @@ const Card = (props) => {
 
     const getCardInfo = async () => {
         try {
-            const res = await (fetch(`${BASE_URL}/api/cards/${param.id}`));
+            const res = await (fetch(`${BASE_URL}/api/cards/getOneCard/${param.id}`));
 
             if (!res.ok) {
                 console.error(`Error with data fetching. Status: ${res.status}`);

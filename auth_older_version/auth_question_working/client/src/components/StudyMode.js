@@ -193,6 +193,7 @@ const Study = (props) => {
                 <>
                     <h3>Your Card Collection</h3>
                     {cards.map(item => {
+                        console.log("cards.map,",item)
                         return (
                             <div className="cardCollection"
                                 key={item.card_id}>
